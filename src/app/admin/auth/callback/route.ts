@@ -19,17 +19,8 @@ export async function GET(request: Request) {
             return cookieStore.get(key)?.value ?? null
           },
           setItem: (key, value) => {
-            const expires = new Date()
-            expires.setTime(expires.getTime() + 7 * 24 * 60 * 60 * 1000) // 7 days
-            cookieStore.set({
-              name: key,
-              value,
-              httpOnly: true,
-              secure: true,
-              sameSite: 'lax',
-              path: '/',
-              expires: expires.toISOString().split('T')[0],
-            })
+            const maxAge = 60 * 60 * 24 * 7 // 7 days
+            cookieStore.set({ name: key, value, httpOnly: true, secure: true, sameSite: 'lax', path: '/', maxAge })
           },
           removeItem: (key) => {
             cookieStore.delete(key)
@@ -67,21 +58,8 @@ export async function GET(request: Request) {
           // Still redirect to admin even if YouTube fetch fails
         }
       }
-
-      // Create response with session cookies
-      const response = NextResponse.redirect(new URL('/admin', requestUrl.origin))
-
-      // Copy all cookies from storage to the response
-      const allCookies = cookieStore.getAll()
-      allCookies.forEach(cookie => {
-        if (cookie.name.includes('-auth-token')) {
-          response.cookies.set(cookie.name, cookie.value)
-        }
-      })
-
-      return response
     }
   }
 
-  return NextResponse.redirect(new URL('/admin/login', requestUrl.origin))
+  return NextResponse.redirect(new URL('/admin', requestUrl.origin))
 }
