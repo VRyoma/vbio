@@ -19,7 +19,8 @@ export async function middleware(request: NextRequest) {
   const { data: { user } } = await supabase.auth.getUser()
 
   const isAuthPage = request.nextUrl.pathname.startsWith('/admin/login')
-  const isAdminPage = request.nextUrl.pathname.startsWith('/admin') && !request.nextUrl.pathname.startsWith('/admin/login')
+  const isCallbackPage = request.nextUrl.pathname.startsWith('/admin/auth/callback')
+  const isAdminPage = request.nextUrl.pathname.startsWith('/admin') && !isAuthPage && !isCallbackPage
 
   if (isAdminPage && !user) {
     const redirectUrl = new URL('/admin/login', request.url)

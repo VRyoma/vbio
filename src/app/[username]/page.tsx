@@ -118,8 +118,6 @@ export default async function UsernamePage({ params }: { params: Promise<{ usern
   )
 }
 
-export const runtime = 'edge';
-
 export async function generateMetadata({ params }: { params: Promise<{ username: string }> }) {
   const resolvedParams = await params
   const { data: profile } = await supabase

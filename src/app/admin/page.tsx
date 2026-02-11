@@ -2,8 +2,6 @@ import { checkAuth } from '@/lib/auth'
 import Link from 'next/link'
 import { User, Settings, Link as LinkIcon } from 'lucide-react'
 
-export const runtime = 'edge';
-
 export default async function AdminDashboard() {
   const { user, supabase } = await checkAuth()
 
