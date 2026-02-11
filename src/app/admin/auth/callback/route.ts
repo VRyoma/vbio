@@ -3,6 +3,8 @@ import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { fetchYouTubeChannel } from '@/lib/youtube'
 
+export const runtime = 'edge';
+
 export async function GET(request: Request) {
   const requestUrl = new URL(request.url)
   const code = requestUrl.searchParams.get('code')
