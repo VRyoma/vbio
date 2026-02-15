@@ -49,6 +49,15 @@ export async function GET(request: Request) {
       },
     }
   )
+  // Exchange PKCE code for session (sets cookies server-side)
+  const code = requestUrl.searchParams.get('code')
+  if (code) {
+    const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code)
+    if (exchangeError) {
+      console.error('Code exchange error:', exchangeError)
+      return NextResponse.redirect(new URL('/admin/login?error=auth_failed', requestUrl.origin))
+    }
+  }
 
   const { data: { user }, error: authError } = await supabase.auth.getUser()
   const { data: { session } } = await supabase.auth.getSession()
