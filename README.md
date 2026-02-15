@@ -1,36 +1,22 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# vlink (ぶりんく) - VTuber向け Link in Bio サービス
 
-## Getting Started
+## 概要
+**vlink (ぶりんく)** は、VTuberやクリエイターが自分のリンク（SNS、配信、グッズなど）を一つにまとめて公開できるサービスです。
+Google/YouTubeログインによる本人認証機能を備え、公式チェックマークによる信頼性の担保を実現します。
 
-First, run the development server:
+「一瞬で、もっと輝く自分へ。」をコンセプトに、クリエイターの個性を繋ぎ、輝かせる場所を提供します。
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 主な機能
+- **かんたんプロフィール作成**: Googleアカウントでログインするだけで自分専用のリンク集を作成できます。
+- **YouTube連携 & 本人認証**: ログイン時にYouTubeチャンネル情報を自動取得。連携済みユーザーには「認証済みバッジ」が付与されます。
+- **動的ルーティング**: `link.vvil.jp/username` の形式で、各クリエイターのプロフィールページを公開できます。
+- **レスポンシブデザイン**: スマートフォン、PCの両方で見やすいUIを提供します。
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 技術スタック
+- **Frontend**: Next.js 15 (App Router)
+- **Backend**: Supabase (Auth, Database)
+- **Deployment**: Cloudflare Pages / Proxmox LXC
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 開発・運営
+- **開発者**: 鏑流馬 流馬 (Ryoma Yabusame)
+- **基盤**: 自宅サーバー (Proxmox環境) & Cloudflare

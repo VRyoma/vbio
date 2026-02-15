@@ -2,6 +2,8 @@ import { checkAuth } from '@/lib/auth'
 import Link from 'next/link'
 import { User, Settings, Link as LinkIcon } from 'lucide-react'
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminDashboard() {
   const { user, supabase } = await checkAuth()
 
