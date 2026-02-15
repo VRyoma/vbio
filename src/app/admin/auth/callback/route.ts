@@ -5,6 +5,7 @@ import { fetchYouTubeChannel } from '@/lib/youtube'
 
 export async function GET(request: Request) {
   const requestUrl = new URL(request.url)
+  const cookieStore = await cookies()
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
@@ -15,20 +16,35 @@ export async function GET(request: Request) {
     {
       cookies: {
         get(name: string) {
-          return cookies().then(c => c.get(name)?.value)
+          return cookieStore.get(name)?.value
         },
         set(name: string, value: string, options: any) {
-          cookies().then(cookieStore => {
-            const maxAge = 60 * 60 * 24 * 7 // 7 days
-            cookieStore.set(name, value, {
+          try {
+            cookieStore.set({
+              name,
+              value,
               ...options,
-              maxAge,
               httpOnly: true,
               secure: true,
               sameSite: 'lax',
               path: '/',
             })
-          })
+          } catch (e) {
+            // Cookie set may not be supported in some contexts
+          }
+        },
+        remove(name: string, options: any) {
+          try {
+            cookieStore.set({
+              name,
+              value: '',
+              ...options,
+              maxAge: 0,
+              path: '/',
+            })
+          } catch (e) {
+            // Cookie remove may not be supported in some contexts
+          }
         },
       },
     }
